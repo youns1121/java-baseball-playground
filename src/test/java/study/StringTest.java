@@ -3,7 +3,10 @@ package study;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import java.util.HashSet;
+import java.util.Set;
+
+import static org.assertj.core.api.Assertions.*;
 
 public class StringTest {
     @Test
@@ -71,20 +74,54 @@ public class StringTest {
     }
 
     @Test
-    @DisplayName("요구사항3: 인덱스 3번째 값과 동일 여부")
+    @DisplayName("인덱스 초과 예외발생 테스트")
     public void charAt2(){
 
-        //given
-        String str = "abc";
-        char actual = ' ';
+        assertThatThrownBy(() -> {
 
-        //when
-        actual = str.charAt(3);
+            //given
+            String str = "abc";
+            char actual = ' ';
 
-        //then
-        assertThat(actual).isEqualTo('c');
+            //when
+            actual = str.charAt(3);
+
+
+            //then
+            assertThat(actual).isEqualTo('c');
+
+        }).isInstanceOf(IndexOutOfBoundsException.class);
+
+
+
+
+
+
+
 
     }
+
+    @Test
+    @DisplayName("Set 요구사항1")
+    public void setTest(){
+
+        //given
+        Set<Integer> numbers = new HashSet<>(); //순서 없이 저장하고 , 객체 중복 허용 안함
+
+
+        //when
+        numbers.add(1);
+        numbers.add(1);
+        numbers.add(2);
+        numbers.add(3);
+
+
+        //then
+
+        assertThat(numbers).size();
+
+    }
+
 
 
 
