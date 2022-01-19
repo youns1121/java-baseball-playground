@@ -36,6 +36,61 @@ public class StringTest {
         
     }
 
+    @Test
+    @DisplayName("요구사항2")
+    public void substring(){
+
+        //given
+        String str = "(1,2)";
+
+
+        //when
+        str = str.substring(1);
+        str = str.substring(0, 3);
+        System.out.println(str);
+
+
+        //then
+        assertThat(str).isEqualTo("1,2");
+    }
+
+    @Test
+    @DisplayName("요구사항3: 인덱스 2번째 값과 동일 여부")
+    public void charAt(){
+
+        //given
+        String str = "abc";
+        char actual = ' ';
+
+        //when
+        actual = str.charAt(2);
+
+        //then
+        assertThat(actual).isEqualTo('c');
+
+    }
+
+    @Test
+    @DisplayName("요구사항3: 인덱스 3번째 값과 동일 여부")
+    public void charAt2(){
+
+        //given
+        String str = "abc";
+        char actual = ' ';
+
+        //when
+        actual = str.charAt(3);
+
+        //then
+        assertThat(actual).isEqualTo('c');
+
+    }
+
+
+
+
+
+
 
     
 
