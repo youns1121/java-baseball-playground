@@ -1,12 +1,19 @@
 package study;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.jupiter.params.provider.ValueSource;
+import sun.awt.HKSCS;
 
 import java.util.HashSet;
 import java.util.Set;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class StringTest {
     @Test
@@ -93,45 +100,68 @@ public class StringTest {
         }).isInstanceOf(IndexOutOfBoundsException.class);
 
 
-
-
-
-
-
-
-    }
-
-    @Test
-    @DisplayName("Set 요구사항1")
-    public void setTest(){
-
-        //given
-        Set<Integer> numbers = new HashSet<>(); //순서 없이 저장하고 , 객체 중복 허용 안함
-
-
-        //when
-        numbers.add(1);
-        numbers.add(1);
-        numbers.add(2);
-        numbers.add(3);
-
-
-        //then
-
-        assertThat(numbers).size();
-
     }
 
 
+    public class SetTest {
+
+        private Set<Integer> numbers;
+
+        @BeforeEach
+        void setUp() {
+            numbers = new HashSet<>();
+            numbers.add(1);
+            numbers.add(1);
+            numbers.add(2);
+            numbers.add(3);
+        }
 
 
 
+        @Test
+        @DisplayName("Set 사이즈 확인")
+        public void checkSize() {
+
+                //given
+                ;//순서 없이 저장하고 , 객체 중복 허용 안함
+
+                //when
+
+                int size = numbers.size();
+
+
+                //then
+
+                assertThat(size).isEqualTo(3);
+        }
+
+        @ParameterizedTest
+        @DisplayName("Set 내부 값의 존재 여부 확인 - 중복코드 제거")
+        @ValueSource(ints = {1, 2, 3})
+        void usingContains(int input) {
+
+            //given
+
+
+            //when
+
+            //then
+            assertTrue(numbers.contains(input));
+
+        }
+
+        @ParameterizedTest
+        @CsvSource(value = {"1: true", "2: true", "3 : true", "4: false", "5: flase"}, delimiter = ':')
+        @DisplayName("입력 값에 따라 결과 값이 다른 경우의 테스트")
+        void differentReturn(int input, boolean expected){
+
+            assertThat(numbers.contains(input)).isEqualTo(expected);
+        }
+
+}
 
 
 
-    
-
-    
 
     @Test
     void Req_1(){
