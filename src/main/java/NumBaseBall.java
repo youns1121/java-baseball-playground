@@ -1,33 +1,69 @@
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.Scanner;
 
 public class NumBaseBall {
     public static void main(String[] args) {
 
-        List<String> gameNum = new ArrayList<>(3);
-        List<String> playerNum = new ArrayList<>(3);
-        Random random = new Random();
-        int strike = 0;
-        int ball = 0;
+        Player player = new Player();
+        Computer computer = new Computer();
 
-        //숫자 야구 숫자 생성
-        for (int i = 0; i < 3; i++) {
-            int randNum = random.nextInt((9 - 1) + 1) + 1;
+        List<String> comNumber = computer.createNumber();
 
-            gameNum.add(String.valueOf(randNum));
+        int gameCount = 0;
 
 
-            if ((gameNum.size() >= 2) && (gameNum.get(i-1).equals(gameNum.get(i)))) {
-                gameNum.remove(i);
-                i--;
 
+
+
+
+
+        while(gameCount != 2) {
+            Compare compare = new Compare();
+
+            List<String> playerNumber = player.createNumber();
+
+            compare.firstCompare(playerNumber, comNumber);
+            compare.secondCompare(playerNumber, comNumber);
+            compare.thirdCompare(playerNumber, comNumber);
+
+            System.out.println(playerNumber+", "+comNumber);
+
+            compare.ballCountPrint();
+
+            if(compare.getStrike() == 3) {
+                System.out.println("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
+                System.out.println("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.");
+                Scanner scanner = new Scanner(System.in);
+                gameCount = scanner.nextInt();
+            }
+
+            if(gameCount == 1){
+                continue;
+            }
+
+            if(gameCount == 2){
+                break;
             }
 
 
-            System.out.println(gameNum);
+
+
 
         }
+
+
+
+
+
+
+
+
+
+
+
+
     }
 }
 
